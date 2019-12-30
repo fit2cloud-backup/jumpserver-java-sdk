@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.jumpserver.sdk.v2.api.Apis;
 import com.jumpserver.sdk.v2.httpclient.build.Config;
 import com.jumpserver.sdk.v2.jumpserver.assets.AssertsService;
+import com.jumpserver.sdk.v2.jumpserver.domain.DomainService;
 import com.jumpserver.sdk.v2.jumpserver.luna.LunaService;
 import com.jumpserver.sdk.v2.jumpserver.org.OrgService;
 import com.jumpserver.sdk.v2.jumpserver.permissions.PermissionService;
@@ -49,6 +50,11 @@ public class JMSClientImpl implements JMSClient {
     @Override
     public PermissionService permissions() {
         return Apis.getPermissionServices();
+    }
+
+    @Override
+    public DomainService domains() {
+        return Apis.getDomainService();
     }
 
     public static JMSClient createSession(ApiKey apiKey, Map<String, Object> headers, Config config) {

@@ -55,4 +55,7 @@ public final class ClientConstants {
     // luna
     public static final String LUNA_URL = "/luna/?login_to=";
 
+    // domain & gateway
+    public static final String DOMAINS = BASE_URL + "/assets/domains/";
+    public static final String GATEWAYS = BASE_URL + "/assets/gateways/";
 }

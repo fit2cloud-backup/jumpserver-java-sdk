@@ -3,6 +3,8 @@ package com.jumpserver.sdk.v2.api;
 import com.google.common.collect.Maps;
 import com.jumpserver.sdk.v2.jumpserver.assets.AssertsService;
 import com.jumpserver.sdk.v2.jumpserver.assets.AssertsServiceImpl;
+import com.jumpserver.sdk.v2.jumpserver.domain.DomainService;
+import com.jumpserver.sdk.v2.jumpserver.domain.DomainServiceImpl;
 import com.jumpserver.sdk.v2.jumpserver.luna.LunaService;
 import com.jumpserver.sdk.v2.jumpserver.luna.LunaServiceImpl;
 import com.jumpserver.sdk.v2.jumpserver.org.OrgService;
@@ -26,6 +28,7 @@ public class DefaultAPIProvider implements APIProvider {
         bind(LunaService.class, LunaServiceImpl.class);
         bind(OrgService.class, OrgServiceImpl.class);
         bind(AssertsService.class, AssertsServiceImpl.class);
+        bind(DomainService.class, DomainServiceImpl.class);
     }
 
     @SuppressWarnings("unchecked")

@@ -1,6 +1,7 @@
 package com.jumpserver.sdk.v2.builder;
 
 import com.jumpserver.sdk.v2.jumpserver.assets.AssertsService;
+import com.jumpserver.sdk.v2.jumpserver.domain.DomainService;
 import com.jumpserver.sdk.v2.jumpserver.luna.LunaService;
 import com.jumpserver.sdk.v2.jumpserver.org.OrgService;
 import com.jumpserver.sdk.v2.jumpserver.permissions.PermissionService;
@@ -51,6 +52,12 @@ public interface JMSClient {
      * @return
      */
     PermissionService permissions();
+
+    /**
+     * domains 网域网关
+     * @return
+     */
+    DomainService domains();
 
     /**
      * 获得请求头

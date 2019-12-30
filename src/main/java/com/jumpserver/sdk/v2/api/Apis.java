@@ -1,6 +1,7 @@
 package com.jumpserver.sdk.v2.api;
 
 import com.jumpserver.sdk.v2.jumpserver.assets.AssertsService;
+import com.jumpserver.sdk.v2.jumpserver.domain.DomainService;
 import com.jumpserver.sdk.v2.jumpserver.luna.LunaService;
 import com.jumpserver.sdk.v2.jumpserver.org.OrgService;
 import com.jumpserver.sdk.v2.jumpserver.permissions.PermissionService;
@@ -32,6 +33,10 @@ public class Apis {
 
     public static OrgService getOrgServices() {
         return get(OrgService.class);
+    }
+
+    public static DomainService getDomainService() {
+        return get(DomainService.class);
     }
 
     private static APIProvider initializeProvider() {
