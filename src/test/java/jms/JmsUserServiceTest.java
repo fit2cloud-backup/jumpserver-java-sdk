@@ -59,6 +59,7 @@ public class JmsUserServiceTest extends CommonBeforeTest {
         user.setName("sdk test");
         user.setUsername("sdk");
         user.setEmail("sdk@fit2cloud.com");
+        user.setSource("openid");
         try {
             User user1 = os.users().create(user);
             System.out.println(user1.getId());
@@ -68,7 +69,7 @@ public class JmsUserServiceTest extends CommonBeforeTest {
 
         os.users().list().stream().map(User::getName).forEach(System.out::println);
 
-        os.users().search("kaijun@fit2cloud.com").stream().map(User::getEmail).forEach(System.out::println);
+        //os.users().search("kaijun@fit2cloud.com").stream().map(User::getEmail).forEach(System.out::println);
     }
 
     @Test

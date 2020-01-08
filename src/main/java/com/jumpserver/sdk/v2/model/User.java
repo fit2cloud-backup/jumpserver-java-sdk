@@ -4,8 +4,6 @@ import com.jumpserver.sdk.v2.model.entity.ModelEntity;
 
 import java.util.Date;
 
-//public class User extends ListResult<User> {
-//public class User {
 public class User implements ModelEntity {
     private String id;
 
@@ -53,6 +51,8 @@ public class User implements ModelEntity {
 
     private String comment;
 
+    private String source;
+
     private String[] user_permissions;
 
     public String getId() {
@@ -61,6 +61,15 @@ public class User implements ModelEntity {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public User setSource(String source) {
+        this.source = source;
+        return this;
     }
 
     public String getPassword() {
@@ -247,12 +256,4 @@ public class User implements ModelEntity {
         this.user_permissions = user_permissions;
     }
 
-    //    @JsonProperty("users")
-//    @JSONField(name = "users")
-//    private List<User> list;
-//
-//    @Override
-//    protected List<User> value() {
-//        return list;
-//    }
 }
