@@ -37,6 +37,8 @@ public class SystemUser {
 
     private String login_mode;
 
+    private boolean username_same_with_user;
+
 
     public String getId() {
         return id;
@@ -174,4 +176,11 @@ public class SystemUser {
         this.login_mode = login_mode;
     }
 
+    public boolean isUsername_same_with_user() {
+        return username_same_with_user;
+    }
+
+    public void setUsername_same_with_user(boolean username_same_with_user) {
+        this.username_same_with_user = username_same_with_user;
+    }
 }
