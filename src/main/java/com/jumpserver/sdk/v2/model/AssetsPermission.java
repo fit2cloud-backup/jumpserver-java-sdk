@@ -9,13 +9,13 @@ public class AssetsPermission {
 
     private Boolean is_active;
 
-    private Date date_expired;
+    private String date_expired;
 
     private String created_by;
 
-    private Date date_created;
+    private String date_created;
 
-    private Date date_start;
+    private String date_start;
 
     private String comment;
 
@@ -53,11 +53,11 @@ public class AssetsPermission {
         this.is_active = is_active;
     }
 
-    public Date getDate_expired() {
+    public String getDate_expired() {
         return date_expired;
     }
 
-    public void setDate_expired(Date date_expired) {
+    public void setDate_expired(String date_expired) {
         this.date_expired = date_expired;
     }
 
@@ -69,19 +69,19 @@ public class AssetsPermission {
         this.created_by = created_by;
     }
 
-    public Date getDate_created() {
+    public String getDate_created() {
         return date_created;
     }
 
-    public void setDate_created(Date date_created) {
+    public void setDate_created(String date_created) {
         this.date_created = date_created;
     }
 
-    public Date getDate_start() {
+    public String getDate_start() {
         return date_start;
     }
 
-    public void setDate_start(Date date_start) {
+    public void setDate_start(String date_start) {
         this.date_start = date_start;
     }
 
