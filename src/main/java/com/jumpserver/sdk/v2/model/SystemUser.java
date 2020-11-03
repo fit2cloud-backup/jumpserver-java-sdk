@@ -29,6 +29,8 @@ public class SystemUser {
 
     private Boolean auto_push;
 
+    private String sftp_root;
+
     private String sudo;
 
     private String shell;
@@ -140,6 +142,14 @@ public class SystemUser {
 
     public void setAuto_push(Boolean auto_push) {
         this.auto_push = auto_push;
+    }
+
+    public String getSftp_root() {
+        return sftp_root;
+    }
+
+    public void setSftp_root(String sftp_root) {
+        this.sftp_root = sftp_root;
     }
 
     public String getSudo() {
