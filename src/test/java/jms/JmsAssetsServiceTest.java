@@ -89,10 +89,7 @@ public class JmsAssetsServiceTest extends CommonBeforeTest{
         List<AssetsNode> list = os.assets().listAssetsNode();
         System.out.println(list.size());
         for (AssetsNode object : list) {
-            System.out.println(object.getId());
-            System.out.println(object.getTree_parent());
-            System.out.println(object.getValue());
-            System.out.println(object.getIs_node());
+            System.out.println(object.getId()+"---"+object.getValue()+"---"+object.getParent_id());
         }
     }
 
@@ -102,4 +99,38 @@ public class JmsAssetsServiceTest extends CommonBeforeTest{
         System.out.println(delete);
     }
 
+    @Test
+    public void deleteAssetsNodeWithAssetCheckCircle() {
+     String nodeId="098096a1-988e-4083-a3ae-73a73d9045e4";
+     ActionResponse delete = os.assets().deleteAssetsNodeWithAssetCheckCircle(nodeId);
+        System.out.println(delete);
+    }
+
+
+    @Test
+    public void deleteAssetsNodeWithAssetCheck() {
+        String nodeId="098096a1-988e-4083-a3ae-73a73d9045e4";
+        ActionResponse delete = os.assets().deleteAssetsNodeWithAssetCheck(nodeId);
+        System.out.println(delete);
+    }
+
+    @Test
+    public void AssetsNodesIdChildren() {
+        String nodeId="098096a1-988e-4083-a3ae-73a73d9045e4";
+        List<AssetsNode> list = os.assets().listAssetsNodeIdChildren(nodeId);
+        System.out.println(list.size());
+        for (AssetsNode object : list) {
+            System.out.println(object.getId()+"---"+object.getValue()+"---"+object.getParent_id());
+        }
+    }
+
+    @Test
+    public void createAssetsNodeChildren() {
+        String nodeId="7683c06a-a8e7-4f1e-b87c-09e0f7d402e8";
+        AssetsNode object = new AssetsNode();
+        object.setId("8683c06a-a8e7-4f1e-b87c-09e0f7d402e8");
+        object.setValue("演示工作空间-son");
+        AssetsNode result = os.assets().createAssetsNodeChildren(nodeId,object);
+        System.out.println(result.getId()+"---"+result.getValue()+"---"+result.getParent_id());
+    }
 }

@@ -8,10 +8,9 @@ import com.jumpserver.sdk.v2.model.AdminUser;
 import com.jumpserver.sdk.v2.model.Asset;
 import com.jumpserver.sdk.v2.model.AssetsNode;
 import com.jumpserver.sdk.v2.model.SystemUser;
+import org.apache.commons.collections.CollectionUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -25,7 +24,22 @@ public class AssertsServiceImpl extends BaseJmsService implements AssertsService
     //资产节点
     @Override
     public List<AssetsNode> listAssetsNode() {
-        return get(AssetsNode.class, uri(ClientConstants.NODES)).executeList();
+        List<AssetsNode> assetsNodes = get(AssetsNode.class, uri(ClientConstants.NODES)).executeList();
+        //增加获取parent_id 信息
+        Map<String, String> nodeKeyIdInfo = Optional.ofNullable(assetsNodes).orElse(new ArrayList<>())
+                .stream().collect(Collectors.toMap(AssetsNode::getKey, AssetsNode::getId));
+        assetsNodes.stream().filter(assetsNode -> assetsNode.getKey().indexOf(":") > -1).forEach(assetsNode -> {
+            String parentKey = assetsNode.getKey().substring(0, assetsNode.getKey().lastIndexOf(":"));
+            assetsNode.setParent_id(parentKey.indexOf(":")>-1?nodeKeyIdInfo.get(parentKey):"root");
+        });
+        return assetsNodes;
+    }
+
+    //资产节点
+    @Override
+    public List<AssetsNode> listAssetsNodeIdChildren(String nodeId) {
+        String url = ClientConstants.NODES_ID_CHILDREN.replace("{id}", nodeId);
+        return get(AssetsNode.class, url).executeList();
     }
 
     @Override
@@ -61,6 +75,16 @@ public class AssertsServiceImpl extends BaseJmsService implements AssertsService
         return deleteWithResponse(ClientConstants.NODES, nodeId, "/").execute();
     }
 
+    public ActionResponse deleteAssetsNodeWithAssetCheckCircle(String nodeId) {
+        List<AssetsNode> children = listAssetsNodeIdChildren(nodeId);
+        if(CollectionUtils.isNotEmpty(children)){
+            children.stream().forEach(assetsNodeChild ->{
+                deleteAssetsNodeWithAssetCheckCircle(assetsNodeChild.getId());
+            } );
+        }
+        return deleteAssetsNodeWithAssetCheck(nodeId);
+    }
+
     @Override
     public AssetsNode updateAssetsNode(AssetsNode assetsnode) {
         checkNotNull(assetsnode);
@@ -80,6 +104,15 @@ public class AssertsServiceImpl extends BaseJmsService implements AssertsService
     public AssetsNode createAssetsNodeChildren(AssetsNode node) {
         checkNotNull(node);
         return post(AssetsNode.class, ClientConstants.NODES_CHILDREN)
+                .json(JSON.toJSONString(node))
+                .execute();
+    }
+
+    public AssetsNode createAssetsNodeChildren(String nodeId, AssetsNode node) {
+        checkNotNull(nodeId);
+        checkNotNull(node);
+        String url = ClientConstants.NODES_ID_CHILDREN.replace("{id}",nodeId);
+        return post(AssetsNode.class, url)
                 .json(JSON.toJSONString(node))
                 .execute();
     }
