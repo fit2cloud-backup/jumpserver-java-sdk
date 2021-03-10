@@ -1,10 +1,7 @@
 package com.jumpserver.sdk.v2.jumpserver.assets;
 
 import com.jumpserver.sdk.v2.common.ActionResponse;
-import com.jumpserver.sdk.v2.model.AdminUser;
-import com.jumpserver.sdk.v2.model.Asset;
-import com.jumpserver.sdk.v2.model.AssetsNode;
-import com.jumpserver.sdk.v2.model.SystemUser;
+import com.jumpserver.sdk.v2.model.*;
 
 import java.util.List;
 
@@ -79,5 +76,27 @@ public interface AssertsService {
     SystemUser updateSystemUserAuthInfo(SystemUser systemUser);
 
     SystemUser updateSystemUserPush(String userId);
+
+    //网域
+    List<AssetsDomain> listAssetsDomain();
+
+    AssetsDomain createAssetsDomain(AssetsDomain assetsDomain);
+
+    AssetsDomain updateAssetsDomain(AssetsDomain assetsDomain);
+
+    AssetsDomain getAssetsDomain(String assetsDomainId);
+
+    ActionResponse deleteAssetsDomain(String assetsDomainId);
+
+    //网域-网关
+    List<AssetsGateway> listAssetsGateway();
+
+    AssetsGateway createAssetsGateway(AssetsGateway assetsGateway);
+
+    AssetsGateway updateAssetsGateway(AssetsGateway assetsGateway);
+
+    AssetsGateway getAssetsGateway(String assetsGatewayId);
+
+    ActionResponse deleteAssetsGateway(String assetsGatewayId);
 
 }

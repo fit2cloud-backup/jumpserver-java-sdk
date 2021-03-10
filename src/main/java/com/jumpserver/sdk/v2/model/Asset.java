@@ -73,6 +73,11 @@ public class Asset {
 
     private String hardware_info;
 
+    private String domain; //网域
+    private String domain_display;
+    private String org_id;
+    private String org_name;
+
     private String[] nodes;
 
     private String[] labels;
@@ -393,5 +398,37 @@ public class Asset {
     @Deprecated
     public void setProtocol(String protocol) {
         this.protocol = protocol;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    public String getDomain_display() {
+        return domain_display;
+    }
+
+    public void setDomain_display(String domain_display) {
+        this.domain_display = domain_display;
+    }
+
+    public String getOrg_id() {
+        return org_id;
+    }
+
+    public void setOrg_id(String org_id) {
+        this.org_id = org_id;
+    }
+
+    public String getOrg_name() {
+        return org_name;
+    }
+
+    public void setOrg_name(String org_name) {
+        this.org_name = org_name;
     }
 }

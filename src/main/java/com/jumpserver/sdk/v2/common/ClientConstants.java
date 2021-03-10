@@ -25,6 +25,11 @@ public final class ClientConstants {
     // nodes
     public static final String ASSETS = BASE_URL + "/assets/assets/";
 
+    //网域
+    public static final String DOMAINS = BASE_URL + "/assets/domains/";
+    public static final String GATEWAYS = BASE_URL + "/assets/gateways/";
+
+
     public static final String ORG = BASE_URL + "/orgs/orgs/";
     public static final String ORGADMINS = BASE_URL + "/orgs/orgs/{org_id}/membership/admins/";
     public static final String ORGUSERS = BASE_URL + "/orgs/orgs/{org_id}/membership/users/";

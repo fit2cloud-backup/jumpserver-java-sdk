@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.jumpserver.sdk.v2.common.ActionResponse;
 import com.jumpserver.sdk.v2.common.BaseJmsService;
 import com.jumpserver.sdk.v2.common.ClientConstants;
-import com.jumpserver.sdk.v2.model.AdminUser;
-import com.jumpserver.sdk.v2.model.Asset;
-import com.jumpserver.sdk.v2.model.AssetsNode;
-import com.jumpserver.sdk.v2.model.SystemUser;
+import com.jumpserver.sdk.v2.model.*;
 import org.apache.commons.collections.CollectionUtils;
 
 import java.util.*;
@@ -30,7 +27,7 @@ public class AssertsServiceImpl extends BaseJmsService implements AssertsService
                 .stream().collect(Collectors.toMap(AssetsNode::getKey, AssetsNode::getId));
         assetsNodes.stream().filter(assetsNode -> assetsNode.getKey().indexOf(":") > -1).forEach(assetsNode -> {
             String parentKey = assetsNode.getKey().substring(0, assetsNode.getKey().lastIndexOf(":"));
-            assetsNode.setParent_id(parentKey.indexOf(":")>-1?nodeKeyIdInfo.get(parentKey):"root");
+            assetsNode.setParent_id(parentKey.indexOf(":") > -1 ? nodeKeyIdInfo.get(parentKey) : "root");
         });
         return assetsNodes;
     }
@@ -77,10 +74,10 @@ public class AssertsServiceImpl extends BaseJmsService implements AssertsService
 
     public ActionResponse deleteAssetsNodeWithAssetCheckCircle(String nodeId) {
         List<AssetsNode> children = listAssetsNodeIdChildren(nodeId);
-        if(CollectionUtils.isNotEmpty(children)){
-            children.stream().forEach(assetsNodeChild ->{
+        if (CollectionUtils.isNotEmpty(children)) {
+            children.stream().forEach(assetsNodeChild -> {
                 deleteAssetsNodeWithAssetCheckCircle(assetsNodeChild.getId());
-            } );
+            });
         }
         return deleteAssetsNodeWithAssetCheck(nodeId);
     }
@@ -111,7 +108,7 @@ public class AssertsServiceImpl extends BaseJmsService implements AssertsService
     public AssetsNode createAssetsNodeChildren(String nodeId, AssetsNode node) {
         checkNotNull(nodeId);
         checkNotNull(node);
-        String url = ClientConstants.NODES_ID_CHILDREN.replace("{id}",nodeId);
+        String url = ClientConstants.NODES_ID_CHILDREN.replace("{id}", nodeId);
         return post(AssetsNode.class, url)
                 .json(JSON.toJSONString(node))
                 .execute();
@@ -243,5 +240,68 @@ public class AssertsServiceImpl extends BaseJmsService implements AssertsService
                 .json(JSON.toJSONString(systemuser))
                 .execute();
     }
+
+    @Override
+    public List<AssetsDomain> listAssetsDomain() {
+        return get(AssetsDomain.class, uri(ClientConstants.DOMAINS)).executeList();
+    }
+
+    @Override
+    public AssetsDomain createAssetsDomain(AssetsDomain assetsDomain) {
+        checkNotNull(assetsDomain);
+        return post(AssetsDomain.class, uri(ClientConstants.DOMAINS))
+                .json(JSON.toJSONString(assetsDomain))
+                .execute();
+    }
+
+    @Override
+    public AssetsDomain updateAssetsDomain(AssetsDomain assetsDomain) {
+        checkNotNull(assetsDomain);
+        return patch(AssetsDomain.class, ClientConstants.DOMAINS, assetsDomain.getId(), "/").json(JSON.toJSONString(assetsDomain)).execute();
+    }
+
+    @Override
+    public AssetsDomain getAssetsDomain(String assetsDomainId) {
+        checkNotNull(assetsDomainId);
+        return get(AssetsDomain.class, ClientConstants.DOMAINS, assetsDomainId, "/").execute();
+    }
+
+    @Override
+    public ActionResponse deleteAssetsDomain(String assetsDomainId) {
+        checkNotNull(assetsDomainId);
+        return deleteWithResponse(ClientConstants.DOMAINS, assetsDomainId, "/").execute();
+    }
+
+    @Override
+    public List<AssetsGateway> listAssetsGateway() {
+        return get(AssetsGateway.class, uri(ClientConstants.GATEWAYS)).executeList();
+    }
+
+    @Override
+    public AssetsGateway createAssetsGateway(AssetsGateway assetsGateway) {
+        checkNotNull(assetsGateway);
+        return post(AssetsGateway.class, uri(ClientConstants.GATEWAYS))
+                .json(JSON.toJSONString(assetsGateway))
+                .execute();
+    }
+
+    @Override
+    public AssetsGateway updateAssetsGateway(AssetsGateway assetsGateway) {
+        checkNotNull(assetsGateway);
+        return patch(AssetsGateway.class, ClientConstants.GATEWAYS, assetsGateway.getId(), "/").json(JSON.toJSONString(assetsGateway)).execute();
+    }
+
+    @Override
+    public AssetsGateway getAssetsGateway(String assetsGatewayId) {
+        checkNotNull(assetsGatewayId);
+        return get(AssetsGateway.class, ClientConstants.GATEWAYS, assetsGatewayId, "/").execute();
+    }
+
+    @Override
+    public ActionResponse deleteAssetsGateway(String assetsGatewayId) {
+        checkNotNull(assetsGatewayId);
+        return deleteWithResponse(ClientConstants.GATEWAYS, assetsGatewayId, "/").execute();
+    }
+
 
 }
