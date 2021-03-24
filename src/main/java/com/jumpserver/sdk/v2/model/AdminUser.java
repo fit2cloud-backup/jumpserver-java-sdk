@@ -33,6 +33,15 @@ public class AdminUser {
 
     private String[] clusters;
 
+    private String org_id;
+
+    public String getOrg_id() {
+        return org_id;
+    }
+
+    public void setOrg_id(String org_id) {
+        this.org_id = org_id;
+    }
 
     public String getId() {
         return id;
