@@ -39,6 +39,15 @@ public class SystemUser {
 
     private String login_mode;
 
+    private String ad_domain; //ad域
+
+    public String getAd_domain() {
+        return ad_domain;
+    }
+
+    public void setAd_domain(String ad_domain) {
+        this.ad_domain = ad_domain;
+    }
 
     public String getId() {
         return id;
